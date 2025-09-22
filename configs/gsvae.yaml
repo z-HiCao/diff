@@ -1,0 +1,42 @@
+opt_type: "gsvae"
+
+optimizer:
+  name: "adamw"
+  lr: 0.0004
+  betas:
+    - 0.9
+    - 0.95
+  weight_decay: 0.05
+
+lr_scheduler:
+  name: "cosine_warmup"
+  num_warmup_steps: 1000
+
+train:
+  batch_size_per_gpu: 4
+  num_workers: 0          # 新增
+  epochs: 1
+  log_freq: 1
+  early_eval_freq: 100
+  early_eval: 100 
+  eval_freq: 99999             #1000
+  save_freq: 99999             #2000
+  eval_freq_epoch: 999999      #5
+  save_freq_epoch: 999999      #100
+  ema_kwargs: null
+  enable_lpips: false
+  # ema_kwargs:
+  #   decay: 0.9999
+  #   use_ema_warmup: true
+  #   inv_gamma: 1.
+  #   power: 0.75
+
+val:
+  batch_size_per_gpu: 4
+  num_workers: 0          # 新增
+
+opt:
+  pretrained_model_name_or_path: "/opt/data/private/wjy/LRY/DiffSplat-main/stable-diffusion-v1-5"
+  pretrained_tae_path: "/opt/data/private/wjy/LRY/DiffSplat-main/taesd"
+  freeze_encoder: true
+  use_tiny_decoder: true
