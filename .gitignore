@@ -10,3 +10,10 @@ download/*.csv
 temp*.*
 *.tar*
 *.vsix
+test/
+
+# 忽略大模型文件
+*.ckpt
+*.pth
+*.pt
+*.safetensors
