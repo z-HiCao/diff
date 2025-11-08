@@ -10,3 +10,19 @@ download/*.csv
 temp*.*
 *.tar*
 *.vsix
+test/
+
+# 忽略大文件目录
+sd3.5-medium/
+stable-diffusion-v1-5/
+
+# 忽略大模型文件
+*.ckpt
+*.pth
+*.pt
+*.safetensors
+*.bin
+
+# 忽略特定大文件
+extensions/assets/Cap3D_automated_Objaverse_full.csv
+*.wandb
