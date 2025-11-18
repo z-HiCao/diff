@@ -15,6 +15,7 @@ test/
 # 忽略大文件目录
 sd3.5-medium/
 stable-diffusion-v1-5/
+hf_cache/
 
 # 忽略大模型文件
 *.ckpt

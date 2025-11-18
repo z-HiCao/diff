@@ -1,0 +1,71 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [   
+      {
+        "name": "Python: debug RAE train_stage1",
+        "type": "python",
+        "request": "launch",
+        "module": "torch.distributed.run",
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}",
+        "args": [
+            "--standalone",
+            "--nproc_per_node=1",  // 改成你的 GPU 数量
+            "${workspaceFolder}/src/RAE-main/src_RAE/train_stage1_splat.py",
+            "--config", "src/RAE-main/configs/stage1/training/ours_DINOv2_decXL.yaml",
+            "--data-path", "dataset/train",
+            "--results-dir", "results/stage1",
+            "--image-size", "256",
+            "--precision", "bf16"
+        ],
+        "env": {
+            "HF_ENDPOINT": "https://hf-mirror.com",
+            
+            
+        }
+    },
+    {
+        "name": "Python: debug train_gsdiff",
+        "type": "python",
+        "request": "launch",
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}",
+        "program": "${workspaceFolder}/src/train_gsdiff_sd.py",
+        "args": [
+            "--config_file","${workspaceFolder}/configs/gsdiff_sd15.yaml",
+            "--tag", "gsdiff_gobj83k_sd15",
+            "--pin_memory", 
+            "--allow_tf32", 
+            " opt.view_concat_condition=true", 
+            "opt.input_concat_binary_mask=true",
+            "opt.prediction_type=v_prediction"
+        ],
+        "env": {
+            "HF_ENDPOINT": "https://hf-mirror.com",
+            
+            
+        }
+    },
+    {
+        "name": "Python: debug RAE train_stage1 (single GPU)",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/src/RAE-main/src_RAE/train_stage1_splat2.py",
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}",
+        "args": [
+            "--config", "src/RAE-main/configs/stage1/training/ours_DINOv2_decXL.yaml",
+            "--data-path", "dataset/train",
+            "--results-dir", "results/stage1",
+            "--image-size", "256",
+            "--precision", "bf16"
+        ],
+        "env": {
+            "HF_ENDPOINT": "https://hf-mirror.com"
+        }
+    }
+    ]
+}

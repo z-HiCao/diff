@@ -989,7 +989,7 @@ def main():
             # Concatenate input latents with others
             latent_model_input = rearrange(latent_model_input, "(b v) c h w -> b v c h w", v=V_in)
             print(f"[DEBUG]latent_model_input size:{latent_model_input.size()}")
-            print(f"[DEBUG]IMAGE_LEATENT size:{image_latents.size()}")
+            # print(f"[DEBUG]IMAGE_LEATENT size:{image_latents.size()}")
             if opt.view_concat_condition:
                 latent_model_input = torch.cat([image_latents, latent_model_input], dim=1)  # (B, V_in+V_cond, 4, H', W')
             if opt.input_concat_plucker:

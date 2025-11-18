@@ -1,3 +1,6 @@
 [submodule "CLIP"]
 	path = CLIP
 	url = https://github.com/openai/CLIP.git
+[submodule "ImageReward"]
+    path = ImageReward
+    url = git@github.com:zai-org/ImageReward.git

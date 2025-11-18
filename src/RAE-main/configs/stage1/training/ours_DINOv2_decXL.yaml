@@ -7,7 +7,7 @@ stage_1:
     encoder_params:
       dinov2_path: 'facebook/dinov2-with-registers-base'
       normalize: true
-    decoder_config_path: 'configs/decoder/ViTXL'
+    decoder_config_path: 'src/RAE-main/configs/decoder/ViTXL'
     noise_tau: 0.8 # training 0.8, at inference time always set to 0
     reshape_to_2d: true
     #normalization_stat_path: 'models/stats/dinov2/wReg_base/imagenet1k/stat.pt'
@@ -22,6 +22,9 @@ training:
   log_interval: 100
   checkpoint_interval: 5000
   sample_interval: 0
+  file_dir_train:  /opt/data/private/wjy/LRY/DiffSplat-main/dataset/train
+  file_name_train: None
+  opt_type: "gsvae"
   optimizer:
     lr: 2.0e-4
     betas: [0.5, 0.9]
@@ -32,11 +35,15 @@ training:
     decay_end_epoch: 16
     base_lr: 2.0e-4
     final_lr: 2.0e-5
+  
+
+
+
 
 gan:
   disc:
     arch:
-      dino_ckpt_path: 'models/discs/dino_vit_small_patch8_224.pth'
+      dino_ckpt_path: 'src/RAE-main/models/discs/dino_vit_small_patch8_224.pth'
       ks: 9
       norm_type: 'bn'
       using_spec_norm: true

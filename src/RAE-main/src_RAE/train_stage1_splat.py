@@ -46,6 +46,25 @@ from utils.model_utils import instantiate_from_config
 from utils.train_utils import parse_configs
 from utils.optim_utils import build_optimizer, build_scheduler
 
+import sys
+sys.path.append("/opt/data/private/wjy/LRY/DiffSplat-main")
+
+#diffsplat
+from src.data import GObjaverseParquetDataset, ParquetChunkDataSource, MultiEpochsChunkedDataLoader, yield_forever
+from src.models import GSAutoencoderKL, GSRecon, get_optimizer, get_lr_scheduler
+import src.utils.util as util
+import src.utils.vis_util as vis_util
+from src.options import opt_dict
+import accelerate
+from accelerate import Accelerator
+from accelerate import DataLoaderConfiguration, DeepSpeedPlugin
+
+dist.init_process_group(
+    backend='nccl',
+    init_method='env://',
+    rank=int(os.environ['RANK']),
+    world_size=int(os.environ['WORLD_SIZE'])
+)
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Train Stage-1 RAE with GAN and LPIPS losses.")
@@ -63,7 +82,14 @@ def create_logger(logging_dir):
     """
     Create a logger that writes to a log file and stdout.
     """
-    if dist.get_rank() == 0:  # real logger
+    #先是单卡训练
+    # 检查是否已经初始化
+    if not dist.is_available() or not dist.is_initialized():
+        rank = 0
+    else:
+        rank = dist.get_rank()
+
+    if rank == 0:  # real logger
         logging.basicConfig(
             level=logging.INFO,
             format='[\033[34m%(asctime)s\033[0m] %(message)s',
@@ -76,6 +102,7 @@ def create_logger(logging_dir):
         logger.addHandler(logging.NullHandler())
     return logger
 
+#分布式训练，可以先注释
 def setup_distributed() -> Tuple[int, int, torch.device]:
     if "RANK" in os.environ and "WORLD_SIZE" in os.environ:
         rank = int(os.environ["RANK"])
@@ -118,7 +145,7 @@ def calculate_adaptive_weight(
     return d_weight.detach()
 
 
-
+# 分布式训练，用来分开数据。可以先注释掉。
 def prepare_dataloader(
     data_path: Path,
     image_size: int,
@@ -136,6 +163,7 @@ def prepare_dataloader(
         ]
     )
     dataset = ImageFolder(str(data_path), transform=transform)
+    # 分布式训练需要sampler
     sampler = DistributedSampler(dataset, num_replicas=world_size, rank=rank, shuffle=True)
     loader = DataLoader(
         dataset,
@@ -314,10 +342,44 @@ def main():
         scaler = None
         autocast_kwargs = dict(enabled=False)
 
-    loader, sampler = prepare_dataloader(
-        args.data_path, args.image_size, batch_size, num_workers, rank, world_size
+    # 数据：使用diffsplat的dataloader，需要处理为splat tensor
+    # loader, sampler = prepare_dataloader(
+    #     args.data_path, args.image_size, batch_size, num_workers, rank, world_size
+    # )
+    #diffsplat版 TODO:记得改opt
+    opt = opt_dict[training_cfg.get("opt_type")]
+    # if "opt" in training_cfg:
+    #     for k, v in configs["opt"].items():
+    #         setattr(opt, k, v)
+    # opt.__post_init__()
+
+    train_dataset = GObjaverseParquetDataset(
+        data_source=ParquetChunkDataSource("./dataset/train", training_cfg.get("file_name_train")),
+        shuffle=True,
+        shuffle_buffer_size=-1,  # `-1`: not shuffle actually
+        chunks_queue_max_size=1,  # number of preloading chunks
+        # GObjaverse
+        opt=opt,
+        training=True,
     )
-    steps_per_epoch = len(loader)
+    # val_dataset = GObjaverseParquetDataset(
+    #     data_source=ParquetChunkDataSource(opt.file_dir_test, opt.file_name_test),
+    #     shuffle=True,  # shuffle for various visualization
+    #     shuffle_buffer_size=-1,  # `-1`: not shuffle actually
+    #     chunks_queue_max_size=1,  # number of preloading chunks
+    #     # GObjaverse
+    #     opt=opt,
+    #     training=False,
+    # ) #好像不用val
+    train_loader = MultiEpochsChunkedDataLoader(
+        train_dataset,
+        batch_size=training_cfg.get("batch_size"),
+        num_workers=0,
+        drop_last=True,
+        pin_memory=True,
+    )
+
+    steps_per_epoch = len(train_loader)
     if steps_per_epoch == 0:
         raise RuntimeError("Dataloader returned zero batches. Check dataset and batch size settings.")
 
@@ -369,36 +431,67 @@ def main():
         logger.info(disc_optim_msg)
         print(disc_sched_msg if disc_sched_msg else "No LR scheduler for discriminator.")
         logger.info(f"Training for {num_epochs} epochs, batch size {batch_size} per GPU.")
-        logger.info(f"Dataset contains {len(loader.dataset)} samples, {steps_per_epoch} steps per epoch.")
+        logger.info(f"Dataset contains {len(train_loader.dataset)} samples, {steps_per_epoch} steps per epoch.")
         logger.info(f"Running with world size {world_size}, starting from epoch {start_epoch} to {num_epochs}.")
 
 
+    #Accelerater初始化
+    # accelerator = Accelerator(split_batches=False,
+    #                         dataloader_config=DataLoaderConfiguration(non_blocking=True))  # 初始化 accelerator
+    # device = accelerator.device
+    # #====封装====
+    # rae,optimizer, train_loader = accelerator.prepare(
+    #     rae,optimizer, train_loader
+    # )
+    # #set class
+    # train_loader: DataLoaderShard
+
+    
     last_layer = decoder.decoder_pred.weight
     gan_start_step = gan_start_epoch * steps_per_epoch
     disc_update_step = disc_update_epoch * steps_per_epoch
     lpips_start_step = lpips_start_epoch * steps_per_epoch
+    # 加载渲染
+    # GSRecon
+    gsrecon = GSRecon(opt).to(device)
+    gsrecon = gsrecon.requires_grad_(False)
+    gsrecon = gsrecon.eval()
+
+
     for epoch in range(start_epoch, num_epochs):
         ddp_model.train()
-        sampler.set_epoch(epoch)
+        #暂时不需要分布式训练逻辑。
+        # sampler.set_epoch(epoch)
         epoch_metrics: Dict[str, torch.Tensor] = defaultdict(lambda: torch.zeros(1, device=device))
         num_batches = 0
-        for step, (images, _) in enumerate(loader):
+        # for step, (images, _) in enumerate(train_loader):
+        for batch in yield_forever(train_loader):
             use_gan = global_step >= gan_start_step and disc_weight > 0.0
             train_disc = global_step >= disc_update_step and disc_weight > 0.0
             use_lpips = global_step >= lpips_start_step and perceptual_weight > 0.0
-            images = images.to(device, non_blocking=True)
+            # images = images.to(device, non_blocking=True)
+            images = batch["images"].to(device, non_blocking=True)
             real_normed = images * 2.0 - 1.0
             optimizer.zero_grad(set_to_none=True)
             discriminator.eval()
 
             with autocast(**autocast_kwargs):
                 with torch.no_grad():
-                    z = model_woddp.encode(images)
-                recon = model_woddp.decode(z)
-                recon_normed = recon * 2.0 - 1.0
-                rec_loss = F.l1_loss(recon, images)
+                    z = model_woddp.encode(images) #使用DINOv2 encoded
+                # recon = model_woddp.decode(z) 
+                # recon_normed = recon * 2.0 - 1.0
+                # rec_loss = F.l1_loss(recon, images)
+                #方案一：直接decode出splat参数 TODO:数据加载逻辑
+                #损失:1.LPIPS：渲染回图像，再做LPIPS
+                #损失:2.L1： recon_img与原图(未使用)
+                #损失:3.L1: recon_splat 与 过diffsplat(gsrecon)得到的splat参数（目前）
+                recon_splat = model_woddp.decode(z)
+                recon_img = gsrecon.gs_renderer.render(recon_splat, input_C2W, input_fxfycxcy, C2W, fxfycxcy)
+                image_gs = gsrecon.get_gslatents(images,input_C2W, input_fxfycxcy, C2W, fxfycxcy)
+
                 if use_lpips:
-                    lpips_loss = lpips(images, recon)
+                    lpips_loss = lpips(images, recon_img)
+                    
                 else:
                     lpips_loss = rec_loss.new_zeros(())
                 recon_total = rec_loss + perceptual_weight * lpips_loss
@@ -425,6 +518,7 @@ def main():
                 scaler.update()
             else:
                 total_loss.backward()
+                # accelerator.backward(total_loss)
                 if clip_grad is not None:
                     torch.nn.utils.clip_grad_norm_(ddp_model.parameters(), clip_grad)
                 optimizer.step()
@@ -454,6 +548,7 @@ def main():
                         scaler.update()
                     else:
                         d_loss.backward()
+                        # accelerator.backward(d_loss)
                         disc_optimizer.step()
                     disc_metrics = {
                         "disc_loss": d_loss.detach(),

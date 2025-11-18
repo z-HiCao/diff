@@ -271,3 +271,9 @@ opt_dict["gsdiff_sd35m"] = Options(
     prompt_embed_dir="/tmp/GObjaverse_sd35m_prompt_embeds",
     pretrained_model_name_or_path="stabilityai/stable-diffusion-3.5-medium",
 )
+
+
+#RAE
+opt_dict["RAE"]=Options(
+    opt_dict["gsvae"],
+)
