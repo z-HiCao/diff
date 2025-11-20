@@ -1,1 +1,6 @@
-[[34m2025-11-12 10:00:17[0m] Experiment directory created at results/stage1/003-RAE-bf16
+[[34m2025-11-20 13:56:39[0m] Experiment directory created at results/stage1/003-RAE-bf16
+[[34m2025-11-20 13:58:39[0m] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[[34m2025-11-20 13:58:39[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmp4h6kyhrh/test.c -o /tmp/tmp4h6kyhrh/test.o
+[[34m2025-11-20 13:58:39[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmp4h6kyhrh/test.o -laio -o /tmp/tmp4h6kyhrh/a.out
+[[34m2025-11-20 13:58:40[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmp09bo9o3b/test.c -o /tmp/tmp09bo9o3b/test.o
+[[34m2025-11-20 13:58:40[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmp09bo9o3b/test.o -L/usr/local/cuda-11.3 -L/usr/local/cuda-11.3/lib64 -lcufile -o /tmp/tmp09bo9o3b/a.out

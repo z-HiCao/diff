@@ -53,7 +53,7 @@
         "name": "Python: debug RAE train_stage1 (single GPU)",
         "type": "python",
         "request": "launch",
-        "program": "${workspaceFolder}/src/RAE-main/src_RAE/train_stage1_splat2.py",
+        "program": "${workspaceFolder}/src/RAE-main/src_RAE/train_stage1_splat.py",
         "console": "integratedTerminal",
         "cwd": "${workspaceFolder}",
         "args": [
@@ -62,6 +62,21 @@
             "--results-dir", "results/stage1",
             "--image-size", "256",
             "--precision", "bf16"
+        ],
+        "env": {
+            "HF_ENDPOINT": "https://hf-mirror.com"
+        }
+    },
+    {
+        "name": "Try:Use pretrained RAE model",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/src/RAE-main/src_RAE/stage1_sample.py",
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}",
+        "args": [
+            "--config", "src/RAE-main/configs/stage1/pretrained/DINOv2-B.yaml",
+            "--image", "src/RAE-main/assets/pixabay_cat.png",
         ],
         "env": {
             "HF_ENDPOINT": "https://hf-mirror.com"

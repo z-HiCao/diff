@@ -828,6 +828,11 @@ def main():
         ncols=125,
         disable=not accelerator.is_main_process
     )
+    batch = next(iter(train_loader))
+
+    print("=== Batch Structure ===")
+    for k, v in batch.items():
+        print(k, type(v), isinstance(v, torch.Tensor))
     for batch in yield_forever(train_loader):
         # print(f"[DEBUG]: batch['C2W'].shape: {batch['C2W'].shape}")
         if global_update_step == args.max_train_steps:

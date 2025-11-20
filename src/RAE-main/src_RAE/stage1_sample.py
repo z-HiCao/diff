@@ -93,6 +93,59 @@ def main() -> None:
     print(f"Saved reconstruction to {args.output.resolve()}")
     print(f"Input shape: {tuple(image.shape)}, latent shape: {tuple(latent.shape)}, recon shape: {tuple(recon.shape)}")
 
+def test_splat():
+    '''测试splat输入'''
+    parser = argparse.ArgumentParser(
+        description="Reconstruct an input image using a Stage-1 RAE loaded from config."
+    )
+    parser.add_argument(
+        "--config",
+        required=True,
+        help="Path to the YAML config with a stage_1 section.",
+    )
+    parser.add_argument(
+        "--image",
+        type=Path,
+        default=DEFAULT_IMAGE,
+        help=f"Input image to reconstruct (default: {DEFAULT_IMAGE}).",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=Path("recon.png"),
+        help="Where to save the reconstructed image (default: recon.png).",
+    )
+    parser.add_argument(
+        "--device",
+        help="Torch device to use (e.g. cuda, cuda:1, cpu). Auto-detect if omitted.",
+    )
+    args = parser.parse_args()
+
+    device = get_device(args.device)
+
+    if not args.image.exists():
+        raise FileNotFoundError(f"Input image not found: {args.image}")
+
+    rae_config, *_ = parse_configs(args.config)
+    if rae_config is None:
+        raise ValueError(
+            f"No stage_1 section found in config {args.config}. "
+            "Please supply a config with a stage_1 target."
+        )
+
+    torch.set_grad_enabled(False)
+    rae: RAE = instantiate_from_config(rae_config).to(device)
+    rae.eval()
+
+    image = load_image(args.image).to(device)
+    latent, recon = reconstruct(rae, image)
+
+    recon = recon.clamp(0.0, 1.0)
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    save_image(recon, args.output)
+
+    print(f"Saved reconstruction to {args.output.resolve()}")
+    print(f"Input shape: {tuple(image.shape)}, latent shape: {tuple(latent.shape)}, recon shape: {tuple(recon.shape)}")
 
 if __name__ == "__main__":
     main()
