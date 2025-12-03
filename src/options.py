@@ -21,8 +21,8 @@ class Options:
     fxfy: float = 1422.222 / 1024  # for GObjaverse only (https://github.com/modelscope/richdreamer/issues/10#issuecomment-1890870640)
         ## Content
     load_albedo: bool = False
-    load_normal: bool = True
-    load_coord: bool = True
+    load_normal: bool = True #True
+    load_coord: bool = True #True
     load_mr: bool = False
     load_canny: bool = False
     load_depth: bool = False
@@ -46,8 +46,8 @@ class Options:
     dataset_setup_script: str = ""
     # GSRecon
     input_albedo: bool = False
-    input_normal: bool = True
-    input_coord: bool = True
+    input_normal: bool = True #T
+    input_coord: bool = True #T
     input_mr: bool = False
         ## Transformer
     llama_style: bool = True

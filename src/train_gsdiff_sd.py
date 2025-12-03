@@ -376,8 +376,8 @@ def main():
     parser.add_argument(
         "--load_pretrained_gsrecon",
         type=str,
-        #default="gsrecon_gobj265k_cnp_even4",
-        default=None,
+        default="gsrecon_gobj265k_cnp_even4",
+        # default=None,
         help="Tag of a pretrained GSRecon in this project"
     )
     parser.add_argument(

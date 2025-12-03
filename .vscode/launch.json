@@ -76,7 +76,7 @@
         "cwd": "${workspaceFolder}",
         "args": [
             "--config", "src/RAE-main/configs/stage1/pretrained/DINOv2-B.yaml",
-            "--image", "src/RAE-main/assets/pixabay_cat.png",
+            "--image", "assets/crm/astronaut.webp",
         ],
         "env": {
             "HF_ENDPOINT": "https://hf-mirror.com"

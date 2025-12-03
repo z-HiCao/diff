@@ -37,6 +37,14 @@ class GaussianRenderer:
         rgb, scale, rotation, opacity = model_outputs["rgb"], model_outputs["scale"], model_outputs["rotation"], model_outputs["opacity"]
         depth = model_outputs.get("depth", None)
         xyz = model_outputs.get("xyz", None)
+        # input_C2W = input_C2W.squeeze(1)
+        # xyz = None
+        # rgb = model_outputs[:,:,:3]
+        # scale = model_outputs[:,:,3:6]
+        # rotation = model_outputs[:,:,6:10]
+        # opacity = model_outputs[:,:,10:11]
+        # depth = model_outputs[:,:,11:12]
+        # depth = depth.squeeze(2)
         # Only one of `depth` and `xyz` should be None
         assert (depth is not None or xyz is not None) and not (depth is not None and xyz is not None)
 
@@ -56,6 +64,7 @@ class GaussianRenderer:
             if input_normalized:
                 depth = depth + torch.norm(input_C2W[:, :, :3, 3], p=2, dim=2, keepdim=True)[..., None, None]  # [-1, 1] -> image plane + [-1, 1]
             xyz = unproject_depth(depth.squeeze(2), input_C2W, input_fxfycxcy)  # [-1, 1]
+            # xyz = unproject_depth(depth, input_C2W, input_fxfycxcy)  # [-1, 1]
         xyz = xyz + model_outputs.get("offset", torch.zeros_like(xyz))
         if in_image_format:
             xyz = rearrange(xyz, "b v c h w -> b (v h w) c")

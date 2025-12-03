@@ -624,7 +624,7 @@ def main():
                             disable=not accelerator.is_main_process
                         )
                         for val_batch in val_loader:
-                            val_outputs = model(val_batch, lpips_loss, gsrecon, step=global_update_step, dtype=weight_dtype,
+                            val_outputs = model(val_batch, lpips_loss, step=global_update_step, dtype=weight_dtype,
                                 use_tiny_decoder=opt.use_tiny_decoder)
 
                             val_psnr = val_outputs["psnr"]
