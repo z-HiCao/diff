@@ -449,22 +449,22 @@ def main():
         util.save_model_architecture(accelerator.unwrap_model(model), exp_dir)
 
     # # WandB logger
-    # if accelerator.is_main_process:
-    #     if args.offline_wandb:
-    #         os.environ["WANDB_MODE"] = "offline"
-    #     with open(args.wandb_token_path, "r") as f:
-    #         os.environ["WANDB_API_KEY"] = f.read().strip()
-    #     wandb.init(
-    #         project=PROJECT_NAME, name=args.tag,
-    #         config=exp_params, dir=exp_dir,
-    #         resume=True
-    #     )
-    #     # Wandb artifact for logging experiment information
-    #     arti_exp_info = wandb.Artifact(args.tag, type="exp_info")
-    #     arti_exp_info.add_file(os.path.join(exp_dir, "params.yaml"))
-    #     arti_exp_info.add_file(os.path.join(exp_dir, "model.txt"))
-    #     arti_exp_info.add_file(os.path.join(exp_dir, "log.txt"))  # only save the log before training
-    #     wandb.log_artifact(arti_exp_info)
+    if accelerator.is_main_process:
+        if args.offline_wandb:
+            os.environ["WANDB_MODE"] = "offline"
+        with open(args.wandb_token_path, "r") as f:
+            os.environ["WANDB_API_KEY"] = f.read().strip()
+        wandb.init(
+            project=PROJECT_NAME, name=args.tag,
+            config=exp_params, dir=exp_dir,
+            resume=True
+        )
+        # Wandb artifact for logging experiment information
+        arti_exp_info = wandb.Artifact(args.tag, type="exp_info")
+        arti_exp_info.add_file(os.path.join(exp_dir, "params.yaml"))
+        arti_exp_info.add_file(os.path.join(exp_dir, "model.txt"))
+        arti_exp_info.add_file(os.path.join(exp_dir, "log.txt"))  # only save the log before training
+        wandb.log_artifact(arti_exp_info)
 
     # Start training
     logger.logger.propagate = False  # not propagate to the root logger (console)
@@ -476,7 +476,6 @@ def main():
         disable=not accelerator.is_main_process
     )
     for batch in yield_forever(train_loader):
-
         if global_update_step == args.max_train_steps:
             progress_bar.close()
             logger.logger.propagate = True  # propagate to the root logger (console)
@@ -550,29 +549,29 @@ def main():
             )
 
             # Log the training progress
-            #if global_update_step % configs["train"]["log_freq"] == 0 or global_update_step == 1 \
-                #or global_update_step % updated_steps_per_epoch == 0:  # last step of an epoch
-                # if accelerator.is_main_process:
-                #     wandb.log({
-                #         "training/psnr": psnr.item(),
-                #         "training/ssim": ssim.item(),
-                #         "training/lpips": lpips.item(),
-                #         "training/kl": kl.item(),
-                #         "training/loss": loss.item(),
-                #         "training/lr": lr_scheduler.get_last_lr()[0]
-                #     }, step=global_update_step)
-                    # if coord_mse is not None:
-                    #     wandb.log({
-                    #         "training/coord_mse": coord_mse.item()
-                    #     }, step=global_update_step)
-                    # if normal_cosim is not None:
-                    #     wandb.log({
-                    #         "training/normal_cosim": normal_cosim.item()
-                    #     }, step=global_update_step)
-                    # if args.use_ema:
-                    #     wandb.log({
-                    #         "training/ema": ema_states.cur_decay_value
-                    #     }, step=global_update_step)
+            if global_update_step % configs["train"]["log_freq"] == 0 or global_update_step == 1 \
+                or global_update_step % updated_steps_per_epoch == 0:  # last step of an epoch
+                if accelerator.is_main_process:
+                    wandb.log({
+                        "training/psnr": psnr.item(),
+                        "training/ssim": ssim.item(),
+                        "training/lpips": lpips.item(),
+                        "training/kl": kl.item(),
+                        "training/loss": loss.item(),
+                        "training/lr": lr_scheduler.get_last_lr()[0]
+                    }, step=global_update_step)
+                    if coord_mse is not None:
+                        wandb.log({
+                            "training/coord_mse": coord_mse.item()
+                        }, step=global_update_step)
+                    if normal_cosim is not None:
+                        wandb.log({
+                            "training/normal_cosim": normal_cosim.item()
+                        }, step=global_update_step)
+                    if args.use_ema:
+                        wandb.log({
+                            "training/ema": ema_states.cur_decay_value
+                        }, step=global_update_step)
 
             # Save checkpoint
             if (global_update_step % configs["train"]["save_freq"] == 0  # 1. every `save_freq` steps
@@ -624,7 +623,7 @@ def main():
                             disable=not accelerator.is_main_process
                         )
                         for val_batch in val_loader:
-                            val_outputs = model(val_batch, lpips_loss, step=global_update_step, dtype=weight_dtype,
+                            val_outputs = model(val_batch, lpips_loss, gsrecon, step=global_update_step, dtype=weight_dtype,
                                 use_tiny_decoder=opt.use_tiny_decoder)
 
                             val_psnr = val_outputs["psnr"]
@@ -695,24 +694,25 @@ def main():
                     f"loss: {all_val_matrics['loss'].item():.4f}\n"
                 )
 
-                # if accelerator.is_main_process:
-                #     wandb.log({
-                #         "validation/psnr": all_val_matrics["psnr"].item(),
-                #         "validation/ssim": all_val_matrics["ssim"].item(),
-                #         "validation/lpips": all_val_matrics["lpips"].item(),
-                #         "validation/kl": all_val_matrics["kl"].item(),
-                #         "validation/loss": all_val_matrics["loss"].item()
-                #     }, step=global_update_step)
-                #     if "coord_mse" in all_val_matrics:
-                #         wandb.log({
-                #             "validation/coord_mse": all_val_matrics["coord_mse"].item()
-                #         }, step=global_update_step)
-                #     if "normal_cosim" in all_val_matrics:
-                #         wandb.log({
-                #             "validation/normal_cosim": all_val_matrics["normal_cosim"].item()
-                #         }, step=global_update_step)
+                if accelerator.is_main_process:
+                    wandb.log({
+                        "validation/psnr": all_val_matrics["psnr"].item(),
+                        "validation/ssim": all_val_matrics["ssim"].item(),
+                        "validation/lpips": all_val_matrics["lpips"].item(),
+                        "validation/kl": all_val_matrics["kl"].item(),
+                        "validation/loss": all_val_matrics["loss"].item()
+                    }, step=global_update_step)
+                    if "coord_mse" in all_val_matrics:
+                        wandb.log({
+                            "validation/coord_mse": all_val_matrics["coord_mse"].item()
+                        }, step=global_update_step)
+                    if "normal_cosim" in all_val_matrics:
+                        wandb.log({
+                            "validation/normal_cosim": all_val_matrics["normal_cosim"].item()
+                        }, step=global_update_step)
 
                     # Visualize rendering
+                    # 暂时不进行渲染，显存不够。
                     # wandb.log({
                     #     "images/training": vis_util.wandb_mvimage_log(outputs)
                     # }, step=global_update_step)

@@ -13,16 +13,16 @@ lr_scheduler:
   num_warmup_steps: 1000
 
 train:
-  batch_size_per_gpu: 4
+  batch_size_per_gpu: 2
   num_workers: 0          # 新增
-  epochs: 1
+  epochs: 30
   log_freq: 1
   early_eval_freq: 100
   early_eval: 100 
-  eval_freq: 99999             #1000
-  save_freq: 99999             #2000
-  eval_freq_epoch: 999999      #5
-  save_freq_epoch: 999999      #100
+  eval_freq: 1000             #1000
+  save_freq: 2000             #2000
+  eval_freq_epoch: 5      #5
+  save_freq_epoch: 10      #10
   ema_kwargs: null
   enable_lpips: false
   # ema_kwargs:
@@ -32,11 +32,11 @@ train:
   #   power: 0.75
 
 val:
-  batch_size_per_gpu: 4
-  num_workers: 0          # 新增
+  batch_size_per_gpu: 4 #4
+  num_workers: 4          # 新增
 
 opt:
   pretrained_model_name_or_path: "/opt/data/private/wjy/LRY/DiffSplat-main/stable-diffusion-v1-5"
   pretrained_tae_path: "/opt/data/private/wjy/LRY/DiffSplat-main/taesd"
   freeze_encoder: true
-  use_tiny_decoder: true
+  # use_tiny_decoder: true

@@ -1,0 +1,30 @@
+[[34m2025-12-08 08:23:38[0m] Experiment directory created at results/stage1/055-RAE-bf16
+[[34m2025-12-08 08:23:58[0m] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[[34m2025-12-08 08:23:59[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmpu_pc2lmr/test.c -o /tmp/tmpu_pc2lmr/test.o
+[[34m2025-12-08 08:23:59[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmpu_pc2lmr/test.o -laio -o /tmp/tmpu_pc2lmr/a.out
+[[34m2025-12-08 08:24:00[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmp9o1lze99/test.c -o /tmp/tmp9o1lze99/test.o
+[[34m2025-12-08 08:24:00[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmp9o1lze99/test.o -L/usr/local/cuda-11.3 -L/usr/local/cuda-11.3/lib64 -lcufile -o /tmp/tmp9o1lze99/a.out
+[[34m2025-12-08 08:24:06[0m] [Epoch 0 | Step 0] loss/total: 0.7927, loss/recon: 0.4412, loss/lpips: 0.3516, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-08 08:24:33[0m] [Epoch 0] epoch/loss_total: 0.7384, epoch/loss_recon: 0.4408, epoch/loss_lpips: 0.2976, epoch/loss_gan: 0.0000
+[[34m2025-12-08 08:24:58[0m] [Epoch 1] epoch/loss_total: 0.7179, epoch/loss_recon: 0.4323, epoch/loss_lpips: 0.2856, epoch/loss_gan: 0.0000
+[[34m2025-12-08 08:24:59[0m] [Epoch 2 | Step 100] loss/total: 0.7707, loss/recon: 0.4426, loss/lpips: 0.3281, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-08 08:25:24[0m] [Epoch 2] epoch/loss_total: 0.7135, epoch/loss_recon: 0.4281, epoch/loss_lpips: 0.2854, epoch/loss_gan: 0.0000
+[[34m2025-12-08 08:25:49[0m] [Epoch 3] epoch/loss_total: 0.7109, epoch/loss_recon: 0.4240, epoch/loss_lpips: 0.2869, epoch/loss_gan: 0.0000
+[[34m2025-12-08 08:25:50[0m] [Epoch 4 | Step 200] loss/total: 0.7694, loss/recon: 0.4374, loss/lpips: 0.3320, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-08 08:26:15[0m] [Epoch 4] epoch/loss_total: 0.6976, epoch/loss_recon: 0.4172, epoch/loss_lpips: 0.2804, epoch/loss_gan: 0.0000
+[[34m2025-12-08 08:26:41[0m] [Epoch 5] epoch/loss_total: 0.7011, epoch/loss_recon: 0.4180, epoch/loss_lpips: 0.2831, epoch/loss_gan: 0.0000
+[[34m2025-12-08 08:26:42[0m] [Epoch 6 | Step 300] loss/total: 0.7421, loss/recon: 0.4062, loss/lpips: 0.3359, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-08 08:27:06[0m] [Epoch 6] epoch/loss_total: 0.6877, epoch/loss_recon: 0.4103, epoch/loss_lpips: 0.2773, epoch/loss_gan: 0.0000
+[[34m2025-12-08 08:27:32[0m] [Epoch 7] epoch/loss_total: 0.6859, epoch/loss_recon: 0.4075, epoch/loss_lpips: 0.2784, epoch/loss_gan: 0.0000
+[[34m2025-12-08 08:27:33[0m] [Epoch 8 | Step 400] loss/total: 0.7535, loss/recon: 0.4254, loss/lpips: 0.3281, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-08 08:27:56[0m] [Epoch 8] epoch/loss_total: 0.6887, epoch/loss_recon: 0.4075, epoch/loss_lpips: 0.2812, epoch/loss_gan: 0.0000
+[[34m2025-12-08 08:28:21[0m] [Epoch 9] epoch/loss_total: 0.6869, epoch/loss_recon: 0.4043, epoch/loss_lpips: 0.2826, epoch/loss_gan: 0.0000
+[[34m2025-12-08 08:28:22[0m] [Epoch 10 | Step 500] loss/total: 0.7400, loss/recon: 0.4138, loss/lpips: 0.3262, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-08 08:28:46[0m] [Epoch 10] epoch/loss_total: 0.6740, epoch/loss_recon: 0.3993, epoch/loss_lpips: 0.2747, epoch/loss_gan: 0.0000
+[[34m2025-12-08 08:29:12[0m] [Epoch 11] epoch/loss_total: 0.6722, epoch/loss_recon: 0.3973, epoch/loss_lpips: 0.2749, epoch/loss_gan: 0.0000
+[[34m2025-12-08 08:29:13[0m] [Epoch 12 | Step 600] loss/total: 0.6921, loss/recon: 0.3894, loss/lpips: 0.3027, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-08 08:29:36[0m] [Epoch 12] epoch/loss_total: 0.6632, epoch/loss_recon: 0.3937, epoch/loss_lpips: 0.2695, epoch/loss_gan: 0.0000
+[[34m2025-12-08 08:30:02[0m] [Epoch 13] epoch/loss_total: 0.6685, epoch/loss_recon: 0.3932, epoch/loss_lpips: 0.2753, epoch/loss_gan: 0.0000
+[[34m2025-12-08 08:30:03[0m] [Epoch 14 | Step 700] loss/total: 0.6672, loss/recon: 0.3860, loss/lpips: 0.2812, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-08 08:30:26[0m] [Epoch 14] epoch/loss_total: 0.6630, epoch/loss_recon: 0.3918, epoch/loss_lpips: 0.2713, epoch/loss_gan: 0.0000
+[[34m2025-12-08 08:30:52[0m] [Epoch 15] epoch/loss_total: 0.6649, epoch/loss_recon: 0.3909, epoch/loss_lpips: 0.2740, epoch/loss_gan: 0.0000

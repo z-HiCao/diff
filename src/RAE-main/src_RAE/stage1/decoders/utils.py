@@ -86,7 +86,7 @@ class ViTMAEConfig(PretrainedConfig):
         layer_norm_eps=1e-12,
         image_size=224,
         patch_size=16,
-        num_channels=3,
+        num_channels=12,#3RESET
         qkv_bias=True,
         decoder_num_attention_heads=16,
         decoder_hidden_size=512,

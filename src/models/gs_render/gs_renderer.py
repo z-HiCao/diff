@@ -37,6 +37,7 @@ class GaussianRenderer:
         rgb, scale, rotation, opacity = model_outputs["rgb"], model_outputs["scale"], model_outputs["rotation"], model_outputs["opacity"]
         depth = model_outputs.get("depth", None)
         xyz = model_outputs.get("xyz", None)
+        C2W = C2W.float() #转精度
         # input_C2W = input_C2W.squeeze(1)
         # xyz = None
         # rgb = model_outputs[:,:,:3]

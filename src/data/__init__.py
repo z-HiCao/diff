@@ -82,14 +82,14 @@ def debug_check_none(data, path="batch"):
 def yield_forever(iterator: Iterator[Any]):
     while True:
         for i, x in enumerate(iterator):
-            # --- [新增] 调试代码开始 ---
+            # --- [新增] 调试代码开始 ---【DEBUG使用】
             # 在交给 accelerate/GPU 之前，先检查一遍
-            if debug_check_none(x):
-                print(f"[DEBUG INFO] The batch (index {i}) contains None! Stopping execution to prevent crash.")
-                # 可以在这里打印 keys 帮助定位
-                if isinstance(x, dict):
-                    print(f"[DEBUG INFO] Top-level keys: {list(x.keys())}")
-                raise ValueError("Batch contains None (see log above for location)")
+            # if debug_check_none(x):
+            #     print(f"[DEBUG INFO] The batch (index {i}) contains None! Stopping execution to prevent crash.")
+            #     # 可以在这里打印 keys 帮助定位
+            #     if isinstance(x, dict):
+            #         print(f"[DEBUG INFO] Top-level keys: {list(x.keys())}")
+            #     raise ValueError("Batch contains None (see log above for location)")
             # --- [新增] 调试代码结束 ---
             
             yield x

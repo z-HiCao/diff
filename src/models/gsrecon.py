@@ -179,13 +179,14 @@ class GSRecon(nn.Module):
             - `input_C2W`: (B, V_in, 4, 4)
             - `input_fxycxcy`: (B, V_in, 4)
         """
-        print(f"DEBUG: input_images.shape: {input_images.shape}")
-        input_images = input_images.squeeze(1).squeeze(3)
-        print(f"DEBUG: Squeezed input_images.shape: {input_images.shape}")
-        print(f"DEBUG: INPUT C2W.shape: {input_C2W.shape}")
+        # print(f"DEBUG: input_images.shape: {input_images.shape}")
+        
+        input_images = input_images.squeeze(1)
+        # print(f"DEBUG: Squeezed input_images.shape: {input_images.shape}")
+        # print(f"DEBUG: INPUT C2W.shape: {input_C2W.shape}")
         _, V_in, _, H, W = input_images.shape
         plucker, _ = plucker_ray(H, W, input_C2W, input_fxfycxcy)  # (B, V_in, 6, H, W)
-        print(f"DEBUG: PLUCKER.shape: {plucker.shape}")
+        # print(f"DEBUG: PLUCKER.shape: {plucker.shape}")
         images_plucker = torch.cat([input_images * 2. - 1., plucker], dim=2)
         images_plucker = rearrange(images_plucker, "b v c h w -> (b v) c h w")
         x = patchify(images_plucker, self.opt.patch_size)  # (B*V_in, N, C)

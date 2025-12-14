@@ -125,7 +125,7 @@ def plucker_ray(h: int, w: int, C2W: Tensor, fxfycxcy: Tensor, bug: bool = True)
         fxfycxcy = fxfycxcy.squeeze(1)
     B, V = C2W.shape[:2]
     # 验证修复后的形状
-    print(f"[DEBUG_GEO]: Fixed C2W shape in geo_util: {C2W.shape}")
+    # print(f"[DEBUG_GEO]: Fixed C2W shape in geo_util: {C2W.shape}")
 
     C2W = C2W.reshape(B*V, 4, 4).float()
     fxfycxcy = fxfycxcy.reshape(B*V, 4).float()

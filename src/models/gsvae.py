@@ -161,10 +161,10 @@ class GSAutoencoderKL(nn.Module):
 
         color_name = "albedo" if self.opt.input_albedo else "image"
 
-        images = data[color_name].to(dtype)  # (B, V, 3, H, W)
-        masks = data["mask"].to(dtype)  # (B, V, 1, H, W)
-        C2W = data["C2W"].to(dtype)  # (B, V, 4, 4)
-        fxfycxcy = data["fxfycxcy"].to(dtype)  # (B, V, 4)
+        images = data[color_name].to(dtype).squeeze(1)  # (B, V, 3, H, W)
+        masks = data["mask"].to(dtype).squeeze(1)   # (B, V, 1, H, W)
+        C2W = data["C2W"].to(dtype).squeeze(1)   # (B, V, 4, 4)
+        fxfycxcy = data["fxfycxcy"].to(dtype).squeeze(1)  # (B, V, 4)
 
         # Input views
         V_in = self.opt.num_input_views
@@ -173,11 +173,11 @@ class GSAutoencoderKL(nn.Module):
         input_fxfycxcy = fxfycxcy[:, :V_in, ...]
 
         if self.opt.input_normal:
-            input_images = torch.cat([input_images, data["normal"][:, :V_in, ...]], dim=2)
+            input_images = torch.cat([input_images, data["normal"][:, :,:V_in, ...].squeeze(1)], dim=2)
         if self.opt.input_coord:
-            input_images = torch.cat([input_images, data["coord"][:, :V_in, ...]], dim=2)
+            input_images = torch.cat([input_images, data["coord"][:,:, :V_in, ...].squeeze(1)], dim=2)
         if self.opt.input_mr:
-            input_images = torch.cat([input_images, data["mr"][:, :V_in, :2]], dim=2)
+            input_images = torch.cat([input_images, data["mr"][:, :,:V_in, :2].squeeze(1)], dim=2)
 
         # Get GS latents, KL divergence and ground-truth GS
         if latents is None or kl is None or gs is None:

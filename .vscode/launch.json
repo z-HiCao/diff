@@ -81,6 +81,23 @@
         "env": {
             "HF_ENDPOINT": "https://hf-mirror.com"
         }
+    },
+    {
+        "name": "debug train gsvae",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/src/train_gsvae.py",
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}",
+        "args": [
+            "--config_file","${workspaceFolder}/configs/gsvae.yaml",
+            "--tag", "gsvae_smallDataset_sd",
+            "opt_type=gsvae", 
+            "--gradient_accumulation_steps", "4",
+        ],
+        "env": {
+            "HF_ENDPOINT": "https://hf-mirror.com"
+        }
     }
     ]
 }

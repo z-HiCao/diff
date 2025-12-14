@@ -1082,6 +1082,8 @@ def main():
         autocast_kwargs = dict(enabled=False)
 
     opt = opt_dict[training_cfg.get("opt_type")]
+    #提取需要的参数
+    V_in = opt.num_input_views
 
     train_dataset = GObjaverseParquetDataset(
         data_source=ParquetChunkDataSource("./dataset/train", training_cfg.get("file_name_train")),
@@ -1161,6 +1163,13 @@ def main():
     gsrecon = gsrecon.requires_grad_(False)
     gsrecon = gsrecon.eval()
 
+    
+    print(f"Load GSRecon checkpoint \n")
+    gsrecon = util.load_ckpt(
+        os.path.join("out", "gsrecon_gobj265k_cnp_even4", "checkpoints"),-1,
+        model = gsrecon
+    ).to(device)
+
     for epoch in range(start_epoch, num_epochs):
         ddp_model.train()
         epoch_metrics: Dict[str, torch.Tensor] = defaultdict(lambda: torch.zeros(1, device=device))
@@ -1176,41 +1185,61 @@ def main():
             train_disc = global_step >= disc_update_step and disc_weight > 0.0
             use_lpips = global_step >= lpips_start_step and perceptual_weight > 0.0
             
-            images = batch["image"].to(device, non_blocking=True)
-            C2W = batch["C2W"].to(device, non_blocking=True)
-            fxfycxcy = batch["fxfycxcy"].to(device, non_blocking=True)
+            images = batch["image"].to(device, non_blocking=True).squeeze(0)
+            C2W = batch["C2W"].to(device, non_blocking=True).squeeze(0)# (B, V, 4, 4)
+            fxfycxcy = batch["fxfycxcy"].to(device, non_blocking=True).squeeze(0) #(B,V,4)
+
+            input_image = images[:,:V_in,:,:]
+            img_useForRecon = input_image  #recon还需要在channel维拼接normal\coord
+            input_C2W = C2W[:, :V_in, ...]# (B, Vin, 4, 4)
+            input_fxfycxcy = fxfycxcy[:, :V_in, ...]
             
-            C, H, W = images.shape[-3:]
-            images_flat = images.view(-1, C, H, W)
-            total_images = images_flat.shape[0]
+            if opt.input_normal:
+                normal_map = batch["normal"][:, :,:V_in, ...].to(device=device, dtype=torch.float32).contiguous()
+                normal_map = normal_map.squeeze(1)
+                img_useForRecon = torch.cat([img_useForRecon, normal_map], dim=2)
+            if opt.input_coord:
+                coord_map = batch["coord"][:,:, :V_in, ...].to(device=device, dtype=torch.float32).contiguous()
+                coord_map = coord_map.squeeze(1)
+                img_useForRecon = torch.cat([img_useForRecon, coord_map], dim=2)
+            
+            V,C, H, W = images.shape[-4:]
+            input_image_flat  = input_image.view(-1, C, H, W) #展开后输入encoder，[B,V_in,C,H,W]=>[B*V_IN,C,H,W]
 
-            if "input_C2W" in batch:
-                input_C2W = batch["input_C2W"].to(device, non_blocking=True).view(total_images, 4, 4)
-                input_fxfycxcy = batch["input_fxfycxcy"].to(device, non_blocking=True).view(total_images, 4)
-            else:
-                input_C2W = C2W.view(total_images, 4, 4)
-                input_fxfycxcy = fxfycxcy.view(total_images, 4)
-
-            target_C2W = C2W.view(total_images, 4, 4)
-            target_fxfycxcy = fxfycxcy.view(total_images, 4)
-
-            real_normed = images_flat * 2.0 - 1.0
+            real_normed = input_image_flat * 2.0 - 1.0
             optimizer.zero_grad(set_to_none=True)
             discriminator.eval()
 
             with autocast(**autocast_kwargs):
                 with torch.no_grad():
-                    z = model_woddp.encode(images_flat)
+                    z = model_woddp.encode(input_image_flat) #(B*V_in,C,H,W) 
                 
                 recon_splat = model_woddp.decode(z)
-                splat_params_dict = unpack_splat_tensor(recon_splat)
-                recon_img = gsrecon.gs_renderer.render(splat_params_dict, input_C2W, input_fxfycxcy, target_C2W, target_fxfycxcy)
-                image_gs = gsrecon.get_gslatents(images_flat,input_C2W, input_fxfycxcy,target_C2W, target_fxfycxcy)
+                recon_splat = recon_splat.view(batch_size, V_in, *recon_splat.shape[1:]) #[B,V_in,12,H,W]
+                # splat_params_dict = unpack_splat_tensor(recon_splat)
+                model_outputs = {
+                "rgb": recon_splat[:, :,:3, ...],
+                "scale": recon_splat[:, :, 3:6, ...],
+                "rotation": recon_splat[:, :, 6:10, ...],
+                "opacity": recon_splat[:, :, 10:11, ...],
+                "depth": recon_splat[:,:, 11:12, ...],
+            }
                 
-                rec_loss = F.l1_loss(recon_splat, image_gs)
+                recon_img = gsrecon.gs_renderer.render(model_outputs, input_C2W, input_fxfycxcy, C2W, fxfycxcy) #会输出image、coord、normal，也许可以用这些训练。
+                gs_output = gsrecon.forward_gaussians(img_useForRecon,input_C2W, input_fxfycxcy)
+                gs = torch.cat([
+                gs_output["rgb"],
+                gs_output["scale"],
+                gs_output["rotation"],
+                gs_output["opacity"],
+                gs_output["depth"],
+            ], dim=2)
+                
+                rec_loss = F.l1_loss(recon_splat, gs)
 
                 if use_lpips:
-                    lpips_loss = lpips(images_flat, recon_img)
+                    #recon_img 有新视角。
+                    lpips_loss = lpips(images.view(-1, C, H, W), recon_img["image"].view(-1, C, H, W)) #recon_img原本为[B,V,C,H,W]=>[B*V,C,H,W],LPIPS只接受3D/4D
                 else:
                     lpips_loss = rec_loss.new_zeros(())
                 recon_total = rec_loss + perceptual_weight * lpips_loss
