@@ -1,0 +1,1 @@
+{"epoch/loss_gan":0,"_wandb":{"runtime":998},"epoch/loss_total":0.5956321358680725,"epoch/loss_recon":0.3285227119922638,"_runtime":998.285260425,"gan/weight":0,"loss/gan":0,"lr/generator":0.0002,"_timestamp":1.7657251003333032e+09,"_step":400,"loss/total":0.6098979115486145,"loss/lpips":0.275390625,"loss/recon":0.3345072865486145,"epoch/loss_lpips":0.26710936427116394}

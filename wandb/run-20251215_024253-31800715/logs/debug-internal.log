@@ -1,0 +1,14 @@
+{"time":"2025-12-15T02:42:53.34634323Z","level":"INFO","msg":"stream: starting","core version":"0.22.2"}
+{"time":"2025-12-15T02:42:54.371173409Z","level":"INFO","msg":"stream: created new stream","id":"31800715"}
+{"time":"2025-12-15T02:42:54.371287518Z","level":"INFO","msg":"handler: started","stream_id":"31800715"}
+{"time":"2025-12-15T02:42:54.371379994Z","level":"INFO","msg":"stream: started","id":"31800715"}
+{"time":"2025-12-15T02:42:54.371400465Z","level":"INFO","msg":"writer: started","stream_id":"31800715"}
+{"time":"2025-12-15T02:42:54.37144034Z","level":"INFO","msg":"sender: started","stream_id":"31800715"}
+{"time":"2025-12-15T03:20:56.94926523Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/roinnn2xm-beijing-jiaotong-university/uncategorized/31800715/file_stream\": unexpected EOF"}
+{"time":"2025-12-15T03:33:08.80902467Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/roinnn2xm-beijing-jiaotong-university/uncategorized/31800715/file_stream\": unexpected EOF"}
+{"time":"2025-12-15T03:34:38.644585612Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/roinnn2xm-beijing-jiaotong-university/uncategorized/31800715/file_stream\": read tcp 10.106.200.210:53634->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-12-15T03:34:43.989647419Z","level":"INFO","msg":"stream: closing","id":"31800715"}
+{"time":"2025-12-15T03:34:45.866383335Z","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-12-15T03:34:47.87191673Z","level":"INFO","msg":"handler: closed","stream_id":"31800715"}
+{"time":"2025-12-15T03:34:47.872165724Z","level":"INFO","msg":"sender: closed","stream_id":"31800715"}
+{"time":"2025-12-15T03:34:47.872211775Z","level":"INFO","msg":"stream: closed","id":"31800715"}

@@ -61,7 +61,9 @@
             "--data-path", "dataset/train",
             "--results-dir", "results/stage1",
             "--image-size", "256",
-            "--precision", "bf16"
+            "--wandb_token_path","/opt/data/private/wjy/LRY/DiffSplat-main/wandb/token",
+            "--wandb",
+
         ],
         "env": {
             "HF_ENDPOINT": "https://hf-mirror.com"

@@ -1,0 +1,101 @@
+_wandb:
+    value:
+        cli_version: 0.22.2
+        e:
+            4zgad16ub85whjnhxiouuiqtrzv0afx5:
+                args:
+                    - --config
+                    - src/RAE-main/configs/stage1/training/ours_DINOv2_decXL.yaml
+                    - --data-path
+                    - dataset/train
+                    - --results-dir
+                    - results/stage1
+                    - --image-size
+                    - "256"
+                    - --precision
+                    - bf16
+                    - --wandb
+                    - --wandb_token_path
+                    - /opt/data/private/wjy/LRY/DiffSplat-main/wandb/token
+                codePath: src/RAE-main/src_RAE/train_stage1_splat.py
+                codePathLocal: src/RAE-main/src_RAE/train_stage1_splat.py
+                cpu_count: 32
+                cpu_count_logical: 64
+                cudaVersion: "12.0"
+                disk:
+                    /:
+                        total: "15873648197632"
+                        used: "10429678100480"
+                email: roinnn2xm@gmail.com
+                executable: /opt/data/private/hyx/anaconda3/envs/diffsplat/bin/python
+                git:
+                    commit: 290b957cb7a4464780b224678fe839150fdeddf4
+                    remote: git@github.com:z-HiCao/diff.git
+                gpu: NVIDIA GeForce RTX 4090
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ada
+                      cudaCores: 16384
+                      memoryTotal: "25757220864"
+                      name: NVIDIA GeForce RTX 4090
+                      uuid: GPU-15285a61-229d-fd64-420b-6a4a5e354405
+                host: zqddetr
+                memory:
+                    total: "270121627648"
+                os: Linux-5.4.0-42-generic-x86_64-with-glibc2.27
+                program: /opt/data/private/wjy/LRY/DiffSplat-main/src/RAE-main/src_RAE/train_stage1_splat.py
+                python: CPython 3.10.18
+                root: /opt/data/private/wjy/LRY/DiffSplat-main
+                startedAt: "2025-12-15T02:42:53.116860Z"
+                writerId: 4zgad16ub85whjnhxiouuiqtrzv0afx5
+        m: []
+        python_version: 3.10.18
+        t:
+            "1":
+                - 1
+                - 11
+                - 41
+                - 49
+                - 51
+                - 63
+                - 71
+                - 83
+            "2":
+                - 1
+                - 11
+                - 41
+                - 49
+                - 51
+                - 63
+                - 71
+                - 83
+            "3":
+                - 13
+                - 14
+                - 16
+                - 61
+            "4": 3.10.18
+            "5": 0.22.2
+            "6": 4.57.1
+            "12": 0.22.2
+            "13": linux-x86_64
+ckpt:
+    value: null
+config:
+    value: src/RAE-main/configs/stage1/training/ours_DINOv2_decXL.yaml
+data_path:
+    value: dataset/train
+global_seed:
+    value: null
+gradient_accumulation_steps:
+    value: 8
+image_size:
+    value: 256
+precision:
+    value: bf16
+results_dir:
+    value: results/stage1
+wandb:
+    value: true
+wandb_token_path:
+    value: /opt/data/private/wjy/LRY/DiffSplat-main/wandb/token

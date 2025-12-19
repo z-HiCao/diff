@@ -1,6 +1,26 @@
-[[34m2025-12-03 15:25:21[0m] Experiment directory created at results/stage1/013-RAE-bf16
-[[34m2025-12-03 15:25:44[0m] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
-[[34m2025-12-03 15:25:44[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmp4uq7u5yr/test.c -o /tmp/tmp4uq7u5yr/test.o
-[[34m2025-12-03 15:25:44[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmp4uq7u5yr/test.o -laio -o /tmp/tmp4uq7u5yr/a.out
-[[34m2025-12-03 15:25:45[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmptg76e7i_/test.c -o /tmp/tmptg76e7i_/test.o
-[[34m2025-12-03 15:25:45[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmptg76e7i_/test.o -L/usr/local/cuda-11.3 -L/usr/local/cuda-11.3/lib64 -lcufile -o /tmp/tmptg76e7i_/a.out
+[[34m2025-12-14 14:54:51[0m] Experiment directory created at results/stage1/013-RAE-bf16
+[[34m2025-12-14 14:55:16[0m] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[[34m2025-12-14 14:55:16[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmpbre75vbk/test.c -o /tmp/tmpbre75vbk/test.o
+[[34m2025-12-14 14:55:16[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmpbre75vbk/test.o -laio -o /tmp/tmpbre75vbk/a.out
+[[34m2025-12-14 14:55:17[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmp_y_b3vej/test.c -o /tmp/tmp_y_b3vej/test.o
+[[34m2025-12-14 14:55:17[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmp_y_b3vej/test.o -L/usr/local/cuda-11.3 -L/usr/local/cuda-11.3/lib64 -lcufile -o /tmp/tmp_y_b3vej/a.out
+[[34m2025-12-14 14:55:27[0m] [Epoch 0 | Step 0] loss/total: 0.6868, loss/recon: 0.3782, loss/lpips: 0.3086, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-14 14:56:27[0m] [Epoch 0] epoch/loss_total: 0.6771, epoch/loss_recon: 0.3813, epoch/loss_lpips: 0.2958, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:57:25[0m] [Epoch 1] epoch/loss_total: 0.6622, epoch/loss_recon: 0.3774, epoch/loss_lpips: 0.2848, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:58:24[0m] [Epoch 2] epoch/loss_total: 0.6530, epoch/loss_recon: 0.3721, epoch/loss_lpips: 0.2809, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:59:27[0m] [Epoch 3] epoch/loss_total: 0.6489, epoch/loss_recon: 0.3690, epoch/loss_lpips: 0.2800, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:59:31[0m] [Epoch 4 | Step 100] loss/total: 0.6523, loss/recon: 0.3671, loss/lpips: 0.2852, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-14 15:00:30[0m] [Epoch 4] epoch/loss_total: 0.6454, epoch/loss_recon: 0.3648, epoch/loss_lpips: 0.2807, epoch/loss_gan: 0.0000
+[[34m2025-12-14 15:01:33[0m] [Epoch 5] epoch/loss_total: 0.6445, epoch/loss_recon: 0.3614, epoch/loss_lpips: 0.2831, epoch/loss_gan: 0.0000
+[[34m2025-12-14 15:02:36[0m] [Epoch 6] epoch/loss_total: 0.6407, epoch/loss_recon: 0.3584, epoch/loss_lpips: 0.2823, epoch/loss_gan: 0.0000
+[[34m2025-12-14 15:03:36[0m] [Epoch 7] epoch/loss_total: 0.6338, epoch/loss_recon: 0.3547, epoch/loss_lpips: 0.2791, epoch/loss_gan: 0.0000
+[[34m2025-12-14 15:03:40[0m] [Epoch 8 | Step 200] loss/total: 0.6073, loss/recon: 0.3397, loss/lpips: 0.2676, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-14 15:04:36[0m] [Epoch 8] epoch/loss_total: 0.6261, epoch/loss_recon: 0.3502, epoch/loss_lpips: 0.2759, epoch/loss_gan: 0.0000
+[[34m2025-12-14 15:05:37[0m] [Epoch 9] epoch/loss_total: 0.6271, epoch/loss_recon: 0.3480, epoch/loss_lpips: 0.2790, epoch/loss_gan: 0.0000
+[[34m2025-12-14 15:06:38[0m] [Epoch 10] epoch/loss_total: 0.6200, epoch/loss_recon: 0.3424, epoch/loss_lpips: 0.2775, epoch/loss_gan: 0.0000
+[[34m2025-12-14 15:07:38[0m] [Epoch 11] epoch/loss_total: 0.6188, epoch/loss_recon: 0.3408, epoch/loss_lpips: 0.2781, epoch/loss_gan: 0.0000
+[[34m2025-12-14 15:07:42[0m] [Epoch 12 | Step 300] loss/total: 0.6099, loss/recon: 0.3345, loss/lpips: 0.2754, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-14 15:08:38[0m] [Epoch 12] epoch/loss_total: 0.6105, epoch/loss_recon: 0.3378, epoch/loss_lpips: 0.2727, epoch/loss_gan: 0.0000
+[[34m2025-12-14 15:09:37[0m] [Epoch 13] epoch/loss_total: 0.6102, epoch/loss_recon: 0.3348, epoch/loss_lpips: 0.2754, epoch/loss_gan: 0.0000
+[[34m2025-12-14 15:10:38[0m] [Epoch 14] epoch/loss_total: 0.6050, epoch/loss_recon: 0.3326, epoch/loss_lpips: 0.2724, epoch/loss_gan: 0.0000
+[[34m2025-12-14 15:11:40[0m] [Epoch 15] epoch/loss_total: 0.5956, epoch/loss_recon: 0.3285, epoch/loss_lpips: 0.2671, epoch/loss_gan: 0.0000

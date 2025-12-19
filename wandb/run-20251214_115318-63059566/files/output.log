@@ -1,0 +1,16 @@
+encoder_config_path: facebook/dinov2-with-registers-base
+[LPIPS] Loaded pretrained weights from /opt/data/private/wjy/LRY/DiffSplat-main/src/RAE-main/src_RAE/disc/.caches/vgg.pth
+DEBUG: Temporarily reduced samples to: 100
+type(data_source): <class 'src.data.utils.chunk_data_source.ParquetChunkDataSource'>
+len(data_source.samples): 100
+DEBUG: Temporarily reduced samples to: 50
+[[34m2025-12-14 11:53:46[0m] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[2025-12-14 11:53:46,256] [INFO] [real_accelerator.py:219:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[[34m2025-12-14 11:53:46[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmppgtujzk4/test.c -o /tmp/tmppgtujzk4/test.o
+[[34m2025-12-14 11:53:46[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmppgtujzk4/test.o -laio -o /tmp/tmppgtujzk4/a.out
+[[34m2025-12-14 11:53:48[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmpqwvqzlgn/test.c -o /tmp/tmpqwvqzlgn/test.o
+[[34m2025-12-14 11:53:48[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmpqwvqzlgn/test.o -L/usr/local/cuda-11.3 -L/usr/local/cuda-11.3/lib64 -lcufile -o /tmp/tmpqwvqzlgn/a.out
+Load GSRecon checkpoint
+
+out/gsrecon_gobj265k_cnp_even4/checkpoints/302000
+[[34m2025-12-14 11:53:58[0m] [Epoch 0 | Step 0] loss/total: 0.6979, loss/recon: 0.3847, loss/lpips: 0.3132, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002

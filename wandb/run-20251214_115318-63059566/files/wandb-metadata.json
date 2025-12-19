@@ -1,0 +1,53 @@
+{
+  "os": "Linux-5.4.0-42-generic-x86_64-with-glibc2.27",
+  "python": "CPython 3.10.18",
+  "startedAt": "2025-12-14T11:53:18.561013Z",
+  "args": [
+    "--config",
+    "src/RAE-main/configs/stage1/training/ours_DINOv2_decXL.yaml",
+    "--data-path",
+    "dataset/train",
+    "--results-dir",
+    "results/stage1",
+    "--image-size",
+    "256",
+    "--wandb_token_path",
+    "/opt/data/private/wjy/LRY/DiffSplat-main/wandb/token",
+    "--wandb"
+  ],
+  "program": "/opt/data/private/wjy/LRY/DiffSplat-main/src/RAE-main/src_RAE/train_stage1_splat.py",
+  "codePath": "src/RAE-main/src_RAE/train_stage1_splat.py",
+  "codePathLocal": "src/RAE-main/src_RAE/train_stage1_splat.py",
+  "git": {
+    "remote": "git@github.com:z-HiCao/diff.git",
+    "commit": "290b957cb7a4464780b224678fe839150fdeddf4"
+  },
+  "email": "roinnn2xm@gmail.com",
+  "root": "/opt/data/private/wjy/LRY/DiffSplat-main",
+  "host": "zqddetr",
+  "executable": "/opt/data/private/hyx/anaconda3/envs/diffsplat/bin/python",
+  "cpu_count": 32,
+  "cpu_count_logical": 64,
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "15873648197632",
+      "used": "10429503569920"
+    }
+  },
+  "memory": {
+    "total": "270121627648"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 4090",
+      "memoryTotal": "25757220864",
+      "cudaCores": 16384,
+      "architecture": "Ada",
+      "uuid": "GPU-15285a61-229d-fd64-420b-6a4a5e354405"
+    }
+  ],
+  "cudaVersion": "12.0",
+  "writerId": "9ne09p5r2sjvwtbvg15d9e4rto5lira0"
+}

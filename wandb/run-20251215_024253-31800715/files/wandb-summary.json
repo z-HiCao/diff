@@ -1,0 +1,1 @@
+{"loss/total":0.6519951224327087,"loss/recon":0.31996387243270874,"_step":1200,"_runtime":3108.71711084,"loss/gan":0,"_timestamp":1.765769612221267e+09,"_wandb":{"runtime":3108},"lr/generator":0.0002,"gan/weight":0,"loss/lpips":0.33203125}

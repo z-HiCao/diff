@@ -1,6 +1,15 @@
-[[34m2025-11-21 07:47:06[0m] Experiment directory created at results/stage1/011-RAE-bf16
-[[34m2025-11-21 07:47:24[0m] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
-[[34m2025-11-21 07:47:24[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmplufylz31/test.c -o /tmp/tmplufylz31/test.o
-[[34m2025-11-21 07:47:24[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmplufylz31/test.o -laio -o /tmp/tmplufylz31/a.out
-[[34m2025-11-21 07:47:25[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmpb57zdysd/test.c -o /tmp/tmpb57zdysd/test.o
-[[34m2025-11-21 07:47:25[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmpb57zdysd/test.o -L/usr/local/cuda-11.3 -L/usr/local/cuda-11.3/lib64 -lcufile -o /tmp/tmpb57zdysd/a.out
+[[34m2025-12-14 14:25:19[0m] Experiment directory created at results/stage1/011-RAE-bf16
+[[34m2025-12-14 14:25:45[0m] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[[34m2025-12-14 14:25:45[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmp3gyve8bw/test.c -o /tmp/tmp3gyve8bw/test.o
+[[34m2025-12-14 14:25:45[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmp3gyve8bw/test.o -laio -o /tmp/tmp3gyve8bw/a.out
+[[34m2025-12-14 14:25:46[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmptdho6o4s/test.c -o /tmp/tmptdho6o4s/test.o
+[[34m2025-12-14 14:25:46[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmptdho6o4s/test.o -L/usr/local/cuda-11.3 -L/usr/local/cuda-11.3/lib64 -lcufile -o /tmp/tmptdho6o4s/a.out
+[[34m2025-12-14 14:25:55[0m] [Epoch 0 | Step 0] loss/total: 0.6979, loss/recon: 0.3854, loss/lpips: 0.3125, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-14 14:26:23[0m] [Epoch 0] epoch/loss_total: 0.6846, epoch/loss_recon: 0.3845, epoch/loss_lpips: 0.3001, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:26:51[0m] [Epoch 1] epoch/loss_total: 0.6782, epoch/loss_recon: 0.3827, epoch/loss_lpips: 0.2955, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:27:20[0m] [Epoch 2] epoch/loss_total: 0.6731, epoch/loss_recon: 0.3838, epoch/loss_lpips: 0.2894, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:27:48[0m] [Epoch 3] epoch/loss_total: 0.6611, epoch/loss_recon: 0.3768, epoch/loss_lpips: 0.2843, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:28:17[0m] [Epoch 4] epoch/loss_total: 0.6605, epoch/loss_recon: 0.3749, epoch/loss_lpips: 0.2856, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:28:46[0m] [Epoch 5] epoch/loss_total: 0.6597, epoch/loss_recon: 0.3752, epoch/loss_lpips: 0.2845, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:29:14[0m] [Epoch 6] epoch/loss_total: 0.6616, epoch/loss_recon: 0.3737, epoch/loss_lpips: 0.2878, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:29:42[0m] [Epoch 7] epoch/loss_total: 0.6565, epoch/loss_recon: 0.3717, epoch/loss_lpips: 0.2848, epoch/loss_gan: 0.0000

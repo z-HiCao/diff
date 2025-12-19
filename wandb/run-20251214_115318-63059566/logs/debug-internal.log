@@ -1,0 +1,7 @@
+{"time":"2025-12-14T11:53:18.808973949Z","level":"INFO","msg":"stream: starting","core version":"0.22.2"}
+{"time":"2025-12-14T11:53:21.193939644Z","level":"INFO","msg":"stream: created new stream","id":"63059566"}
+{"time":"2025-12-14T11:53:21.194091242Z","level":"INFO","msg":"handler: started","stream_id":"63059566"}
+{"time":"2025-12-14T11:53:21.194285463Z","level":"INFO","msg":"stream: started","id":"63059566"}
+{"time":"2025-12-14T11:53:21.194316905Z","level":"INFO","msg":"writer: started","stream_id":"63059566"}
+{"time":"2025-12-14T11:53:21.194335566Z","level":"INFO","msg":"sender: started","stream_id":"63059566"}
+{"time":"2025-12-14T11:54:41.639972284Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/roinnn2xm-beijing-jiaotong-university/uncategorized/63059566/file_stream\": unexpected EOF"}

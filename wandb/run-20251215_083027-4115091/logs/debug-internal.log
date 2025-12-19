@@ -1,0 +1,21 @@
+{"time":"2025-12-15T08:30:27.802852748Z","level":"INFO","msg":"stream: starting","core version":"0.22.2"}
+{"time":"2025-12-15T08:30:29.375904749Z","level":"INFO","msg":"stream: created new stream","id":"4115091"}
+{"time":"2025-12-15T08:30:29.376044348Z","level":"INFO","msg":"handler: started","stream_id":"4115091"}
+{"time":"2025-12-15T08:30:29.376283367Z","level":"INFO","msg":"stream: started","id":"4115091"}
+{"time":"2025-12-15T08:30:29.376335638Z","level":"INFO","msg":"writer: started","stream_id":"4115091"}
+{"time":"2025-12-15T08:30:29.376351719Z","level":"INFO","msg":"sender: started","stream_id":"4115091"}
+{"time":"2025-12-15T09:56:11.114796725Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/roinnn2xm-beijing-jiaotong-university/uncategorized/4115091/file_stream\": http2: client conn could not be established"}
+{"time":"2025-12-15T10:16:12.521386032Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/roinnn2xm-beijing-jiaotong-university/uncategorized/4115091/file_stream\": unexpected EOF"}
+{"time":"2025-12-15T12:48:06.04276578Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/roinnn2xm-beijing-jiaotong-university/uncategorized/4115091/file_stream\": unexpected EOF"}
+{"time":"2025-12-15T14:38:56.554400006Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/roinnn2xm-beijing-jiaotong-university/uncategorized/4115091/file_stream\": read tcp 10.106.200.210:47212->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-12-15T14:58:00.834588298Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/roinnn2xm-beijing-jiaotong-university/uncategorized/4115091/file_stream\": read tcp 10.106.200.210:36032->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-12-15T14:59:32.976695207Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/roinnn2xm-beijing-jiaotong-university/uncategorized/4115091/file_stream\": unexpected EOF"}
+{"time":"2025-12-15T16:17:07.155539519Z","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/roinnn2xm-beijing-jiaotong-university/uncategorized/4115091/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}
+{"time":"2025-12-15T22:57:41.388566641Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/roinnn2xm-beijing-jiaotong-university/uncategorized/4115091/file_stream\": dial tcp 35.186.228.49:443: connect: connection timed out"}
+{"time":"2025-12-15T23:55:17.025747658Z","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/roinnn2xm-beijing-jiaotong-university/uncategorized/4115091/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}
+{"time":"2025-12-16T00:15:42.984565503Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/roinnn2xm-beijing-jiaotong-university/uncategorized/4115091/file_stream\": unexpected EOF"}
+{"time":"2025-12-16T06:02:42.713999795Z","level":"INFO","msg":"stream: closing","id":"4115091"}
+{"time":"2025-12-16T06:04:55.857920923Z","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-12-16T06:04:58.773627346Z","level":"INFO","msg":"handler: closed","stream_id":"4115091"}
+{"time":"2025-12-16T06:04:58.773815783Z","level":"INFO","msg":"sender: closed","stream_id":"4115091"}
+{"time":"2025-12-16T06:04:58.773857541Z","level":"INFO","msg":"stream: closed","id":"4115091"}

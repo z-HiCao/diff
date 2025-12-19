@@ -1,0 +1,69 @@
+encoder_config_path: facebook/dinov2-with-registers-base
+[LPIPS] Loaded pretrained weights from /opt/data/private/wjy/LRY/DiffSplat-main/src/RAE-main/src_RAE/disc/.caches/vgg.pth
+DEBUG: Temporarily reduced samples to: 100
+type(data_source): <class 'src.data.utils.chunk_data_source.ParquetChunkDataSource'>
+len(data_source.samples): 100
+DEBUG: Temporarily reduced samples to: 50
+=== TRAINING PLAN ===
+Total Epochs: 16
+Steps per Epoch: 66308
+Total Steps to run: 1060928
+=====================
+[[34m2025-12-14 14:25:45[0m] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[2025-12-14 14:25:45,377] [INFO] [real_accelerator.py:219:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[[34m2025-12-14 14:25:45[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmp3gyve8bw/test.c -o /tmp/tmp3gyve8bw/test.o
+[[34m2025-12-14 14:25:45[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmp3gyve8bw/test.o -laio -o /tmp/tmp3gyve8bw/a.out
+[[34m2025-12-14 14:25:46[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmptdho6o4s/test.c -o /tmp/tmptdho6o4s/test.o
+[[34m2025-12-14 14:25:46[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmptdho6o4s/test.o -L/usr/local/cuda-11.3 -L/usr/local/cuda-11.3/lib64 -lcufile -o /tmp/tmptdho6o4s/a.out
+Load GSRecon checkpoint
+
+out/gsrecon_gobj265k_cnp_even4/checkpoints/302000
+[[34m2025-12-14 14:25:55[0m] [Epoch 0 | Step 0] loss/total: 0.6979, loss/recon: 0.3854, loss/lpips: 0.3125, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-14 14:26:23[0m] [Epoch 0] epoch/loss_total: 0.6846, epoch/loss_recon: 0.3845, epoch/loss_lpips: 0.3001, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:26:51[0m] [Epoch 1] epoch/loss_total: 0.6782, epoch/loss_recon: 0.3827, epoch/loss_lpips: 0.2955, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:27:20[0m] [Epoch 2] epoch/loss_total: 0.6731, epoch/loss_recon: 0.3838, epoch/loss_lpips: 0.2894, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:27:48[0m] [Epoch 3] epoch/loss_total: 0.6611, epoch/loss_recon: 0.3768, epoch/loss_lpips: 0.2843, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:28:17[0m] [Epoch 4] epoch/loss_total: 0.6605, epoch/loss_recon: 0.3749, epoch/loss_lpips: 0.2856, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:28:46[0m] [Epoch 5] epoch/loss_total: 0.6597, epoch/loss_recon: 0.3752, epoch/loss_lpips: 0.2845, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:29:14[0m] [Epoch 6] epoch/loss_total: 0.6616, epoch/loss_recon: 0.3737, epoch/loss_lpips: 0.2878, epoch/loss_gan: 0.0000
+[[34m2025-12-14 14:29:42[0m] [Epoch 7] epoch/loss_total: 0.6565, epoch/loss_recon: 0.3717, epoch/loss_lpips: 0.2848, epoch/loss_gan: 0.0000
+Traceback (most recent call last):
+  File "/opt/data/private/wjy/LRY/DiffSplat-main/src/RAE-main/src_RAE/train_stage1_splat.py", line 744, in <module>
+    main()
+  File "/opt/data/private/wjy/LRY/DiffSplat-main/src/RAE-main/src_RAE/train_stage1_splat.py", line 518, in main
+    for batch in train_loader:
+  File "/opt/data/private/hyx/anaconda3/envs/diffsplat/lib/python3.10/site-packages/accelerate/data_loader.py", line 710, in __iter__
+    next_batch, next_batch_info = self._fetch_batches(main_iterator)
+  File "/opt/data/private/hyx/anaconda3/envs/diffsplat/lib/python3.10/site-packages/accelerate/data_loader.py", line 631, in _fetch_batches
+    batches.append(next(iterator))
+  File "/opt/data/private/hyx/anaconda3/envs/diffsplat/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 631, in __next__
+    data = self._next_data()
+  File "/opt/data/private/hyx/anaconda3/envs/diffsplat/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 675, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/opt/data/private/hyx/anaconda3/envs/diffsplat/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 32, in fetch
+    data.append(next(self.dataset_iter))
+  File "/opt/data/private/wjy/LRY/DiffSplat-main/src/data/utils/chunk_dataset.py", line 102, in __iter__
+    batch = self.get_trainable_data_from_raw_data(raw_data)
+  File "/opt/data/private/wjy/LRY/DiffSplat-main/src/data/gobjaverse_parquet_dataset.py", line 811, in get_trainable_data_from_raw_data
+    coords = unproject_depth(final_return_dict["depth"] * mask_2d, final_return_dict["C2W"], final_return_dict["fxfycxcy"])
+RuntimeError: The size of tensor a (7) must match the size of tensor b (8) at non-singleton dimension 1
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/opt/data/private/wjy/LRY/DiffSplat-main/src/RAE-main/src_RAE/train_stage1_splat.py", line 744, in <module>
+[rank0]:     main()
+[rank0]:   File "/opt/data/private/wjy/LRY/DiffSplat-main/src/RAE-main/src_RAE/train_stage1_splat.py", line 518, in main
+[rank0]:     for batch in train_loader:
+[rank0]:   File "/opt/data/private/hyx/anaconda3/envs/diffsplat/lib/python3.10/site-packages/accelerate/data_loader.py", line 710, in __iter__
+[rank0]:     next_batch, next_batch_info = self._fetch_batches(main_iterator)
+[rank0]:   File "/opt/data/private/hyx/anaconda3/envs/diffsplat/lib/python3.10/site-packages/accelerate/data_loader.py", line 631, in _fetch_batches
+[rank0]:     batches.append(next(iterator))
+[rank0]:   File "/opt/data/private/hyx/anaconda3/envs/diffsplat/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 631, in __next__
+[rank0]:     data = self._next_data()
+[rank0]:   File "/opt/data/private/hyx/anaconda3/envs/diffsplat/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 675, in _next_data
+[rank0]:     data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+[rank0]:   File "/opt/data/private/hyx/anaconda3/envs/diffsplat/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 32, in fetch
+[rank0]:     data.append(next(self.dataset_iter))
+[rank0]:   File "/opt/data/private/wjy/LRY/DiffSplat-main/src/data/utils/chunk_dataset.py", line 102, in __iter__
+[rank0]:     batch = self.get_trainable_data_from_raw_data(raw_data)
+[rank0]:   File "/opt/data/private/wjy/LRY/DiffSplat-main/src/data/gobjaverse_parquet_dataset.py", line 811, in get_trainable_data_from_raw_data
+[rank0]:     coords = unproject_depth(final_return_dict["depth"] * mask_2d, final_return_dict["C2W"], final_return_dict["fxfycxcy"])
+[rank0]: RuntimeError: The size of tensor a (7) must match the size of tensor b (8) at non-singleton dimension 1

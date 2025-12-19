@@ -989,6 +989,10 @@ def main():
                 # Final text conditioning
                 prompt_embeds = text_mask * prompt_embeds + (1 - text_mask) * negative_prompt_embeds
 
+            prompt_embeds.squeeze(0)
+
+
+
             prompt_embeds = repeat(prompt_embeds, "b n d -> (b v) n d", v=V_in + (V_cond if opt.view_concat_condition else 0))
 
             # Concatenate input latents with others

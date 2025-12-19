@@ -37,8 +37,8 @@ class ChunkedDataset(IterableDataset):
             print("type(data_source):", type(data_source))
             if hasattr(data_source, "samples"):
                 print("len(data_source.samples):", len(data_source.samples))
-                self.data_list = self.data_list[:50] # 只保留前 50 个样本
-                print("DEBUG: Temporarily reduced samples to:", len(self.data_list))
+                # self.data_list = self.data_list[:50] # 只保留前 50 个样本
+                # print("DEBUG: Temporarily reduced samples to:", len(self.data_list))
 
     def _scan_dataset(self) -> List[Dict[str, Any]]:
         """

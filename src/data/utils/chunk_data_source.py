@@ -15,8 +15,8 @@ class ParquetChunkDataSource:
         """
         self.root_dir = root_dir
         self.samples = self._scan_dataset()  # list[Dict[str, str]]，保存每个 sample 的文件路径
-        self.samples = self.samples[:100]
-        print(f"DEBUG: Temporarily reduced samples to: {len(self.samples)}")        
+        # self.samples = self.samples[:100]
+        # print(f"DEBUG: Temporarily reduced samples to: {len(self.samples)}")        
 
     def _scan_dataset(self) -> list[dict]:
         data_list = []

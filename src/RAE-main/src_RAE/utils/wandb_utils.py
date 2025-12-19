@@ -7,10 +7,12 @@ import os
 import argparse
 import hashlib
 import math
+from accelerate import Accelerator
+accelerator = Accelerator()
 
 
 def is_main_process():
-    return dist.get_rank() == 0
+    return accelerator.is_main_process
 
 def namespace_to_dict(namespace):
     return {
@@ -26,7 +28,7 @@ def generate_run_id(exp_name):
 
 def initialize(args, entity, exp_name, project_name):
     config_dict = namespace_to_dict(args)
-    wandb.login(key=os.environ["WANDB_KEY"])
+    wandb.login(key=os.environ["WANDB_API_KEY"])
     wandb.init(
         entity=entity,
         project=project_name,

@@ -1,1 +1,19 @@
-[[34m2025-12-03 15:51:21[0m] Experiment directory created at results/stage1/014-RAE-bf16
+[[34m2025-12-15 02:42:50[0m] Experiment directory created at results/stage1/014-RAE-bf16
+[[34m2025-12-15 02:43:09[0m] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[[34m2025-12-15 02:43:09[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmpw8o_54wt/test.c -o /tmp/tmpw8o_54wt/test.o
+[[34m2025-12-15 02:43:09[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmpw8o_54wt/test.o -laio -o /tmp/tmpw8o_54wt/a.out
+[[34m2025-12-15 02:43:10[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -O2 -isystem /opt/data/private/hyx/anaconda3/envs/diffsplat/include -fPIC -c /tmp/tmpbogrtjk3/test.c -o /tmp/tmpbogrtjk3/test.o
+[[34m2025-12-15 02:43:10[0m] gcc -pthread -B /opt/data/private/hyx/anaconda3/envs/diffsplat/compiler_compat /tmp/tmpbogrtjk3/test.o -L/usr/local/cuda-11.3 -L/usr/local/cuda-11.3/lib64 -lcufile -o /tmp/tmpbogrtjk3/a.out
+[[34m2025-12-15 02:43:19[0m] [Epoch 0 | Step 0] loss/total: 0.6691, loss/recon: 0.3722, loss/lpips: 0.2969, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-15 02:47:11[0m] [Epoch 0 | Step 100] loss/total: 0.6626, loss/recon: 0.3657, loss/lpips: 0.2969, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-15 02:50:58[0m] [Epoch 0 | Step 200] loss/total: 0.6048, loss/recon: 0.3411, loss/lpips: 0.2637, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-15 02:55:08[0m] [Epoch 0 | Step 300] loss/total: 0.5756, loss/recon: 0.3275, loss/lpips: 0.2480, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-15 02:59:27[0m] [Epoch 0 | Step 400] loss/total: 0.5885, loss/recon: 0.3326, loss/lpips: 0.2559, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-15 03:03:38[0m] [Epoch 0 | Step 500] loss/total: 0.6557, loss/recon: 0.3510, loss/lpips: 0.3047, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-15 03:07:55[0m] [Epoch 0 | Step 600] loss/total: 0.5867, loss/recon: 0.3249, loss/lpips: 0.2617, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-15 03:12:23[0m] [Epoch 0 | Step 700] loss/total: 0.5394, loss/recon: 0.2972, loss/lpips: 0.2422, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-15 03:16:56[0m] [Epoch 0 | Step 800] loss/total: 0.5440, loss/recon: 0.2999, loss/lpips: 0.2441, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-15 03:21:34[0m] [Epoch 0 | Step 900] loss/total: 0.6024, loss/recon: 0.3133, loss/lpips: 0.2891, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-15 03:25:58[0m] [Epoch 0 | Step 1000] loss/total: 0.5742, loss/recon: 0.3086, loss/lpips: 0.2656, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-15 03:29:39[0m] [Epoch 0 | Step 1100] loss/total: 0.5890, loss/recon: 0.3117, loss/lpips: 0.2773, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
+[[34m2025-12-15 03:33:32[0m] [Epoch 0 | Step 1200] loss/total: 0.6520, loss/recon: 0.3200, loss/lpips: 0.3320, loss/gan: 0.0000, gan/weight: 0.0000, lr/generator: 0.0002
