@@ -534,36 +534,53 @@ def main():
                 print(f"[WARN] Skipping weird batch with size {current_bs} (Expected {batch_size}). Likely a dummy batch from safe_collate.")
                 continue
 
-            C2W = batch["C2W"].to(device, non_blocking=True).squeeze(1)# (B, V, 4, 4)
-            fxfycxcy = batch["fxfycxcy"].to(device, non_blocking=True).squeeze(1) #(B,V,4)
+            C2W = batch["C2W"].to(device, non_blocking=True).squeeze(1)# (B, V, 4, 4)   （4，8，4，4）
+            fxfycxcy = batch["fxfycxcy"].to(device, non_blocking=True).squeeze(1) #(B,V,4)  (4,8,4)
 
-            input_image = images[:,:V_in,...]
+            input_image = images[:,:V_in,...] # (4,4,3,256,256)
             img_useForRecon = input_image  #recon还需要在channel维拼接normal\coord
-            input_C2W = C2W[:, :V_in, ...]# (B, Vin, 4, 4)
-            input_fxfycxcy = fxfycxcy[:, :V_in, ...]
+            input_C2W = C2W[:, :V_in, ...]# (B, Vin, 4, 4)  (4,4,4,4)
+            input_fxfycxcy = fxfycxcy[:, :V_in, ...] # (4,4,4)
             
             if opt.input_normal:
-                normal_map = batch["normal"][:, :,:V_in, ...].to(device=device, dtype=torch.float32).contiguous()
-                normal_map = normal_map.squeeze(1)
-                img_useForRecon = torch.cat([img_useForRecon, normal_map], dim=2)
+                normal_map = batch["normal"][:, :,:V_in, ...].to(device=device, dtype=torch.float32).contiguous() #(4,1,4,3,256,256)
+                normal_map = normal_map.squeeze(1) #(4,4,3,256,256)
+                img_useForRecon = torch.cat([img_useForRecon, normal_map], dim=2) #(4,4,6,256,256)
             if opt.input_coord:
-                coord_map = batch["coord"][:,:, :V_in, ...].to(device=device, dtype=torch.float32).contiguous()
-                coord_map = coord_map.squeeze(1)
-                img_useForRecon = torch.cat([img_useForRecon, coord_map], dim=2)
+                coord_map = batch["coord"][:,:, :V_in, ...].to(device=device, dtype=torch.float32).contiguous() #(4,1,4,3,256,256)
+                coord_map = coord_map.squeeze(1) #(4,4,3,256,256)
+                img_useForRecon = torch.cat([img_useForRecon, coord_map], dim=2) #(4,4,9,256,256)
             
-            V,C, H, W = images.shape[-4:]
-            input_image_flat = input_image.reshape(-1, C, H, W)#展开后输入encoder，[B,V_in,C,H,W]=>[B*V_IN,C,H,W]
+            V,C, H, W = images.shape[-4:] #(8,3,256,256)
+            #gaussian gt
+            gs_output = gsrecon.forward_gaussians(img_useForRecon,input_C2W, input_fxfycxcy)
+            gs = torch.cat([
+                gs_output["rgb"],
+                gs_output["scale"],
+                gs_output["rotation"],
+                gs_output["opacity"],
+                gs_output["depth"],
+            ], dim=2)#[b,vin,12,h,w],(4,4,12,256,256)
+            gs_flat = gs.reshape(-1,12,H,W)#展为[b*vin,12,h,w],(16,12,256.256)
+            gs_flat_224 = F.interpolate(
+                gs_flat,
+                size=(224, 224),
+                mode="bilinear",
+                align_corners=False,
+                antialias=True
+            ) #(16,12,224,224)
+            # input_image_flat = input_image.reshape(-1, C, H, W)#展开后输入encoder，[B,V_in,C,H,W]=>[B*V_IN,C,H,W]
 
-            real_normed = input_image_flat * 2.0 - 1.0
+            # real_normed = input_image_flat * 2.0 - 1.0
             optimizer.zero_grad(set_to_none=True)
             discriminator.eval()
 
             with autocast(**autocast_kwargs):
                 with torch.no_grad():
-                    z = model_woddp.encode(input_image_flat) #(B*V_in,C,H,W) 
+                    z = model_woddp.encode(gs_flat_224) #(16,768,16,16)
                 
-                recon_splat = model_woddp.decode(z)
-                recon_splat = recon_splat.view(batch_size, V_in, *recon_splat.shape[1:]) #[B,V_in,12,H,W]
+                recon_splat = model_woddp.decode(z)  #(16,12,256,256)
+                recon_splat = recon_splat.view(batch_size, V_in, 12,256,256) #[B,V_in,12,H,W],#(4,4,12,256,256)
                 # splat_params_dict = unpack_splat_tensor(recon_splat)
                 model_outputs = {
                 "rgb": recon_splat[:, :,:3, ...],
@@ -574,14 +591,7 @@ def main():
             }
                 outputs = {}
                 recon_img = gsrecon.gs_renderer.render(model_outputs, input_C2W, input_fxfycxcy, C2W, fxfycxcy) #会输出image、coord、normal，也许可以用这些训练。
-                gs_output = gsrecon.forward_gaussians(img_useForRecon,input_C2W, input_fxfycxcy)
-                gs = torch.cat([
-                gs_output["rgb"],
-                gs_output["scale"],
-                gs_output["rotation"],
-                gs_output["opacity"],
-                gs_output["depth"],
-            ], dim=2)
+                
                 
                 rec_loss = F.mse_loss(recon_splat, gs)
                 outputs["mseloss"] = rec_loss

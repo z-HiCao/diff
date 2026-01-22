@@ -181,19 +181,19 @@ class GSRecon(nn.Module):
         """
         # print(f"DEBUG: input_images.shape: {input_images.shape}")
         
-        input_images = input_images.squeeze(1)
+        input_images = input_images.squeeze(1) # (4,4,9,256,256)
         # print(f"DEBUG: Squeezed input_images.shape: {input_images.shape}")
         # print(f"DEBUG: INPUT C2W.shape: {input_C2W.shape}")
-        _, V_in, _, H, W = input_images.shape
-        plucker, _ = plucker_ray(H, W, input_C2W, input_fxfycxcy)  # (B, V_in, 6, H, W)
+        _, V_in, _, H, W = input_images.shape #(9,4,256,256)
+        plucker, _ = plucker_ray(H, W, input_C2W, input_fxfycxcy)  # (B, V_in, 6, H, W),(4,4,6,256,256)
         # print(f"DEBUG: PLUCKER.shape: {plucker.shape}")
-        images_plucker = torch.cat([input_images * 2. - 1., plucker], dim=2)
-        images_plucker = rearrange(images_plucker, "b v c h w -> (b v) c h w")
-        x = patchify(images_plucker, self.opt.patch_size)  # (B*V_in, N, C)
-        x = rearrange(x, "(b v) n c -> b v n c", v=V_in)
-        x = self.x_embedder(x)  # (B, V_in, N, D)
+        images_plucker = torch.cat([input_images * 2. - 1., plucker], dim=2) #(4,4,15,256,256)
+        images_plucker = rearrange(images_plucker, "b v c h w -> (b v) c h w") #(16,15,256,256)
+        x = patchify(images_plucker, self.opt.patch_size)  # (B*V_in, N, C),(16,1024,960)
+        x = rearrange(x, "(b v) n c -> b v n c", v=V_in) #(4,4,1024,960)
+        x = self.x_embedder(x)  # (B, V_in, N, D),(4,4,1024,512)
 
-        x = rearrange(x, "b v n d -> b (v n) d")
+        x = rearrange(x, "b v n d -> b (v n) d")#(4,4096,512)
         x = self.transformer(x)
         x = self.ln_out(x)
 
@@ -203,11 +203,11 @@ class GSRecon(nn.Module):
             features = rearrange(features, "(b v) c h w -> b v c h w", v=V_in)  # (B, V_in, `dim`, H, W)
             return features
 
-        depth = _reshape_feature(self.out_depth(x))
-        rgb = _reshape_feature(self.out_rgb(x))
-        scale = _reshape_feature(self.out_scale(x))
-        rotation = _reshape_feature(self.out_rotation(x))
-        opacity = _reshape_feature(self.out_opacity(x))
+        depth = _reshape_feature(self.out_depth(x)) #(4,4,1,256,256)
+        rgb = _reshape_feature(self.out_rgb(x)) #(4,4,3,256,256)
+        scale = _reshape_feature(self.out_scale(x))#(4,4,3,256,256)
+        rotation = _reshape_feature(self.out_rotation(x))#(4,4,4,256,256)
+        opacity = _reshape_feature(self.out_opacity(x))#(4,4,1,256,256)
 
         depth = torch.sigmoid(depth) * 2. - 1.  # [0, 1] -> [-1, 1]
         rgb = torch.sigmoid(rgb) * 2. - 1.  # [0, 1] -> [-1, 1]
